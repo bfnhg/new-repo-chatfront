@@ -34,5 +34,6 @@
   "Average": "Moyenne",
   "Update client": "Edit Client",
   "Cancel": "Annuler",
-  "Update": "Editer"
+  "Update": "Editer",
+  "Do you really want to delete this customer?": "Voulez-vous vraiment supprimer ce client ?"
 }

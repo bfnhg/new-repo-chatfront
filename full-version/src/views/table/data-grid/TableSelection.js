@@ -27,6 +27,8 @@ const TableSelection = () => {
   const [clients, setClients] = useState([])
   const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
+  const [openConfirm, setOpenConfirm] = useState(false)
+  const [clientToDelete, setClientToDelete] = useState(null)
   const [selectedClient, setSelectedClient] = useState(null)
   let { t } = useTranslation()
 
@@ -58,19 +60,22 @@ const TableSelection = () => {
   }
 
   // ** Handle delete client
-  const handleDelete = async id => {
+  const handleDelete = async () => {
     try {
       const token = localStorage.getItem('accessToken')
 
-      await axios.delete(`http://localhost:5000/api/admin/clients/${id}`, {
+      await axios.delete(`http://localhost:5000/api/admin/clients/${clientToDelete}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
 
-      setClients(clients.filter(client => client.id !== id))
+      setClients(clients.filter(client => client.id !== clientToDelete))
     } catch (error) {
       console.error('Error deleting client:', error)
+    } finally {
+      setOpenConfirm(false)
+      setClientToDelete(null)
     }
   }
 
@@ -78,6 +83,14 @@ const TableSelection = () => {
   const handleOpenEdit = client => {
     setSelectedClient(client)
     setOpen(true)
+  }
+  const handleOpenConfirm = id => {
+    setClientToDelete(id)
+    setOpenConfirm(true)
+  }
+  const handleCloseConfirm = () => {
+    setOpenConfirm(false)
+    setClientToDelete(null)
   }
 
   // ** Close Edit Dialog
@@ -156,7 +169,7 @@ const TableSelection = () => {
           <IconButton color='primary' onClick={() => handleOpenEdit(params.row)}>
             <EditIcon />
           </IconButton>
-          <IconButton color='error' onClick={() => handleDelete(params.row.id)}>
+          <IconButton color='error' onClick={() => handleOpenConfirm(params.row.id)}>
             <DeleteIcon />
           </IconButton>
         </Box>
@@ -217,6 +230,22 @@ const TableSelection = () => {
           </Button>
           <Button onClick={handleUpdate} color='primary'>
             {t('Update')}
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog de confirmation */}
+      <Dialog open={openConfirm} onClose={handleCloseConfirm}>
+        <DialogTitle>Confirmation</DialogTitle>
+        <DialogContent>
+          <Typography>{t('Do you really want to delete this customer?')}</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseConfirm} color='secondary'>
+            {t('Cancel')}
+          </Button>
+          <Button onClick={handleDelete} color='error'>
+            {t('Delete')}
           </Button>
         </DialogActions>
       </Dialog>

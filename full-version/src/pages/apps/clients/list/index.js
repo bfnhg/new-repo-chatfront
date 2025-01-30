@@ -13,10 +13,7 @@ import TableSelection from 'src/views/table/data-grid/TableSelection'
 const DataGrid = () => {
   return (
     <Grid container spacing={6}>
-      <PageHeader
-        title={<Typography variant='h5'></Typography>}
-        subtitle={<Typography variant='body2'>List des clients</Typography>}
-      />
+      <PageHeader title={<Typography variant='h5'></Typography>} subtitle={<Typography variant='body2'></Typography>} />
 
       <Grid item xs={12}>
         <TableSelection />
