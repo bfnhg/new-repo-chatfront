@@ -117,7 +117,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='name'
                   control={control}
-                  rules={{ required: 'Name is required' }}
+                  rules={{ required: t('Name is required') }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -134,7 +134,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='email'
                   control={control}
-                  rules={{ required: 'Email is required' }}
+                  rules={{ required: t('Email is required') }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -153,7 +153,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='description'
                   control={control}
-                  rules={{ required: 'Description is required' }}
+                  rules={{ required: t('Description is required') }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -173,7 +173,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='address'
                   control={control}
-                  rules={{ required: 'Address is required' }}
+                  rules={{ required: t('Address is required') }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -191,7 +191,7 @@ const FormValidationBasic = () => {
                   name='site'
                   control={control}
                   rules={{
-                    required: 'Site is required',
+                    required: t('Site is required'),
                     validate: value => {
                       // Regex pour valider une URL
                       const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
@@ -217,7 +217,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='phone'
                   control={control}
-                  rules={{ required: 'Phone is required' }}
+                  rules={{ required: t('Phone is required') }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -235,7 +235,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='password'
                   control={control}
-                  rules={{ required: 'Password is required' }}
+                  rules={{ required: t('Password is required') }}
                   render={({ field }) => (
                     <TextField
                       {...field}

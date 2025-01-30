@@ -11,67 +11,109 @@ const navigation = () => {
   }
 
   return [
+    // {
+    //   title: t('Dashboards'),
+    //   icon: 'mdi:home-outline',
+    //   badgeContent: 'new',
+    //   badgeColor: 'error',
+    //   children: [
+    //     {
+    //       title: t('Analytics'),
+    //       path: '/dashboards/analytics',
+    //       action: 'read',
+    //       subject: 'dashboard'
+    //     },
+    //     {
+    //       title: t('Analysis client'),
+    //       path: '/dashboards/crmclient',
+    //       action: 'read',
+    //       subject: 'dashboardClient'
+    //     },
+
+    //     {
+    //       title: t('ChatBot Assistant'),
+    //       icon: 'mdi:message-outline',
+
+    //       path: `/chatbot/${clientId}`,
+    //       action: 'read',
+    //       subject: 'chatbot',
+    //       openInNewTab: false
+    //     },
+
+    //     {
+    //       title: 'Client',
+    //       icon: 'mdi:file-document-outline',
+    //       children: [
+    //         {
+    //           title: t('Add'),
+    //           path: '/apps/clients/add',
+    //           action: 'read',
+    //           subject: 'client'
+    //         },
+    //         {
+    //           title: 'List',
+    //           path: '/apps/clients/list',
+    //           action: 'read',
+    //           subject: 'client'
+    //         },
+    //         {
+    //           title: t('Conversation history'),
+    //           path: '/apps/clients/historic',
+    //           action: 'read',
+    //           subject: 'conversationHistoric'
+    //         }
+    //       ]
+    //     }
+    //   ]
+    // },
+
     {
       title: t('Dashboards'),
-      icon: 'mdi:home-outline',
-      badgeContent: 'new',
-      badgeColor: 'error',
+      icon: 'mdi:archive-outline',
+      path: '/dashboards/analytics',
+      action: 'read',
+      subject: 'dashboard'
+    },
+    {
+      title: t('Analysis client'),
+      icon: 'mdi:file-document-outline',
+      path: '/dashboards/crmclient',
+      action: 'read',
+      subject: 'dashboardClient'
+    },
+    {
+      title: t('ChatBot Assistant'),
+      icon: 'mdi:message-outline',
+
+      path: `/chatbot/${clientId}`,
+      action: 'read',
+      subject: 'chatbot',
+      openInNewTab: false
+    },
+    {
+      title: 'Client',
+      icon: 'mdi:file-document-outline',
       children: [
         {
-          title: t('Analytics'),
-          path: '/dashboards/analytics',
+          title: t('Add'),
+          path: '/apps/clients/add',
           action: 'read',
-          subject: 'dashboard'
+          subject: 'client'
         },
         {
-          title: t('Analysis client'),
-          path: '/dashboards/crmclient',
+          title: 'List',
+          path: '/apps/clients/list',
           action: 'read',
-          subject: 'dashboardClient'
+          subject: 'client'
         },
-
         {
-          title: t('ChatBot Assistant'),
-          icon: 'mdi:message-outline',
-
-          path: `/chatbot/${clientId}`,
+          title: t('Conversation history'),
+          path: '/apps/clients/historic',
           action: 'read',
-          subject: 'chatbot',
-          openInNewTab: false
-        },
-
-        {
-          title: 'Client',
-          icon: 'mdi:file-document-outline',
-          children: [
-            {
-              title: t('Add'),
-              path: '/apps/clients/add',
-              action: 'read',
-              subject: 'client'
-            },
-            {
-              title: 'List',
-              path: '/apps/clients/list',
-              action: 'read',
-              subject: 'client'
-            },
-            {
-              title: t('Conversation history'),
-              path: '/apps/clients/historic',
-              action: 'read',
-              subject: 'conversationHistoric'
-            }
-          ]
+          subject: 'conversationHistoric'
         }
       ]
     }
-
-    // {
-    //   title: 'Form Validation',
-    //   path: '/forms/form-validation',
-    //   icon: 'mdi:checkbox-marked-circle-outline'
-    // },
     // {
     //   title: 'Form Wizard',
     //   path: '/forms/form-wizard',
