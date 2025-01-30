@@ -4,6 +4,7 @@ import axios from 'axios'
 
 // ** MUI Imports
 import Divider from '@mui/material/Divider'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
@@ -15,6 +16,10 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import CloudUploadIcon from '@mui/icons-material/CloudUpload'
 import { useTranslation } from 'react-i18next'
+import LinearProgress from '@mui/material/LinearProgress'
+import Box from '@mui/material/Box'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
 
 // ** Third Party Imports
 import toast from 'react-hot-toast'
@@ -35,10 +40,28 @@ const FormValidationBasic = () => {
   const [questions, setQuestions] = useState([{ question: '', answer: '' }])
   const [logoFile, setLogoFile] = useState(null) // État pour stocker le fichier logo
   const [chatbotLink, setChatbotLink] = useState(null) // Lien du chatbot après soumission réussie
-
+  const [password, setPassword] = useState('')
+  const [passwordStrength, setPasswordStrength] = useState(0)
   const [clientName, setClientName] = useState(null)
+  const [showPassword, setShowPassword] = useState(false)
+
   let { t } = useTranslation()
 
+  // Fonction pour évaluer la force du mot de passe
+  const evaluatePasswordStrength = value => {
+    let strength = 0
+    if (value.length >= 8) strength += 25
+    if (/[A-Z]/.test(value)) strength += 25
+    if (/[a-z]/.test(value)) strength += 25
+    if (/[0-9]/.test(value) && /[@$!%*?&]/.test(value)) strength += 25
+    return strength
+  }
+  // Fonction pour définir la couleur en fonction de la force
+  const getProgressColor = strength => {
+    if (strength < 50) return 'error' // Rouge (faible)
+    if (strength < 75) return 'warning' // Orange (moyen)
+    return 'success' // Vert (fort)
+  }
   const {
     control,
     handleSubmit,
@@ -117,7 +140,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='name'
                   control={control}
-                  rules={{ required: t('Name is required') }}
+                  rules={{ required: { value: true, message: t('Name is required') || 'Le nom est requis' } }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -134,7 +157,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='email'
                   control={control}
-                  rules={{ required: t('Email is required') }}
+                  rules={{ required: { value: true, message: t('Email is required') || 'L email est requis' } }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -153,7 +176,9 @@ const FormValidationBasic = () => {
                 <Controller
                   name='description'
                   control={control}
-                  rules={{ required: t('Description is required') }}
+                  rules={{
+                    required: { value: true, message: t('Description is required') || 'La description est requise' }
+                  }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -173,7 +198,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='address'
                   control={control}
-                  rules={{ required: t('Address is required') }}
+                  rules={{ required: { value: true, message: t('Address is required') || 'L adresse est requise' } }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -191,7 +216,7 @@ const FormValidationBasic = () => {
                   name='site'
                   control={control}
                   rules={{
-                    required: t('Site is required'),
+                    required: { value: true, message: t('Site is required') || 'Le site est requis' },
                     validate: value => {
                       // Regex pour valider une URL
                       const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
@@ -217,7 +242,7 @@ const FormValidationBasic = () => {
                 <Controller
                   name='phone'
                   control={control}
-                  rules={{ required: t('Phone is required') }}
+                  rules={{ required: { value: true, message: t('Phone is required') || 'Le téléphone est requis' } }}
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -235,20 +260,55 @@ const FormValidationBasic = () => {
                 <Controller
                   name='password'
                   control={control}
-                  rules={{ required: t('Password is required') }}
+                  rules={{
+                    required: { value: true, message: t('Password is required') || 'Le mot de passe est requis' },
+                    minLength: { value: 8, message: t('At least 8 characters') || 'Au moins 8 caractères' }
+                  }}
                   render={({ field }) => (
-                    <TextField
-                      {...field}
-                      type='password'
-                      label={t('Password')}
-                      error={Boolean(errors.password)}
-                      helperText={errors.password && errors.password.message}
-                    />
+                    <>
+                      <TextField
+                        {...field}
+                        type={showPassword ? 'text' : 'password'}
+                        label={t('Password')}
+                        error={Boolean(errors.password)}
+                        helperText={errors.password && errors.password.message}
+                        onChange={e => {
+                          field.onChange(e) // Met à jour le champ
+                          const newPassword = e.target.value
+                          setPassword(newPassword)
+                          setPasswordStrength(evaluatePasswordStrength(newPassword))
+                        }}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position='end'>
+                              <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
+                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                              </IconButton>
+                            </InputAdornment>
+                          )
+                        }}
+                      />
+                      {/* Indicateur de force */}
+                      {password && (
+                        <Box mt={1}>
+                          <LinearProgress
+                            variant='determinate'
+                            value={passwordStrength}
+                            color={getProgressColor(passwordStrength)}
+                          />
+                          <Typography
+                            variant='body2'
+                            sx={{ mt: 1, textAlign: 'center', color: getProgressColor(passwordStrength) }}
+                          >
+                            {passwordStrength < 50 ? 'Faible' : passwordStrength < 75 ? 'Moyen' : 'Fort'}
+                          </Typography>
+                        </Box>
+                      )}
+                    </>
                   )}
                 />
               </FormControl>
             </Grid>
-
             {/* Champ pour téléverser le logo */}
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>

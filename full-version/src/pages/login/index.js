@@ -355,28 +355,13 @@ const LoginPage = () => {
                   </FormHelperText>
                 )}
               </FormControl>
-              {/* <Box
-                sx={{ mb: 4, display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'space-between' }}
-              >
-                <FormControlLabel
-                  label='Remember Me'
-                  control={<Checkbox checked={rememberMe} onChange={e => setRememberMe(e.target.checked)} />}
-                />
-                <LinkStyled href='/forgot-password'>Forgot Password?</LinkStyled>
-              </Box> */}
-              <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7 }}>
+
+              <Button fullWidth size='large' type='submit' variant='contained' sx={{ mb: 7, mt: 4 }}>
                 Login
               </Button>
-              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}>
-                {/* <Typography variant='body2' sx={{ mr: 2 }}>
-                  New on our platform?
-                </Typography> */}
-                {/* <Typography variant='body2'>
-                  <LinkStyled href='/register'>Create an account</LinkStyled>
-                </Typography> */}
-              </Box>
-              <Divider sx={{ my: theme => `${theme.spacing(5)} !important` }}>or</Divider>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Box sx={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', justifyContent: 'center' }}></Box>
+              {/* <Divider sx={{ my: theme => `${theme.spacing(5)} !important` }}>or</Divider> */}
+              {/* <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <IconButton href='/' component={Link} sx={{ color: '#497ce2' }} onClick={e => e.preventDefault()}>
                   <Icon icon='mdi:facebook' />
                 </IconButton>
@@ -394,7 +379,7 @@ const LoginPage = () => {
                 <IconButton href='/' component={Link} sx={{ color: '#db4437' }} onClick={e => e.preventDefault()}>
                   <Icon icon='mdi:google' />
                 </IconButton>
-              </Box>
+              </Box> */}
             </form>
           </BoxWrapper>
         </Box>

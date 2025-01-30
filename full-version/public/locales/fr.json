@@ -36,14 +36,13 @@
   "Cancel": "Annuler",
   "Update": "Editer",
   "Do you really want to delete this customer?": "Voulez-vous vraiment supprimer ce client ?",
-  "Name is required": "",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": "",
-  "": ""
+  "Name is required": "Le nom est requis",
+  "Email is required": "L'email est requis",
+  "Description is required": "La description est requise",
+  "Address is required": "L'adresse est requise",
+  "Site is required": "Le site est requis",
+  "Phone is required": "Le téléphone est requis",
+  "Password is required": "Le mot de passe est requis",
+  "Question": "Question",
+  "Réponse": "Réponse"
 }
