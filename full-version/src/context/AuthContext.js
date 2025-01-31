@@ -36,25 +36,27 @@ const AuthProvider = ({ children }) => {
       const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)
 
       if (storedToken) {
-        setLoading(true)
         try {
+          // Vérifier le token avec le backend
           const response = await axios.get(authConfig.meEndpoint, {
             headers: {
               Authorization: `Bearer ${storedToken}`
             }
           })
 
+          // Si le token est valide, mettre à jour l'état de l'utilisateur
+          setUser(response.data.user)
           setLoading(false)
-          setUser({ ...response.data })
-          setToken(storedToken)
         } catch (err) {
+          // Si le token est invalide, supprimer les données du localStorage
+          console.error('Token validation failed:', err)
+          localStorage.removeItem(authConfig.storageTokenKeyName)
           localStorage.removeItem('userData')
-          localStorage.removeItem('refreshToken')
-          localStorage.removeItem('accessToken')
           setUser(null)
           setLoading(false)
 
-          if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
+          // Rediriger vers la page de login si nécessaire
+          if (!router.pathname.includes('login')) {
             router.replace('/login')
           }
         }
@@ -64,7 +66,7 @@ const AuthProvider = ({ children }) => {
     }
 
     initAuth()
-  }, [])
+  }, [router])
 
   const handleLogin = (params, errorCallback) => {
     axios
