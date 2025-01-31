@@ -27,6 +27,14 @@ const permissions = [
   {
     subject: 'conversationHistoric',
     client: ['read', 'create', 'update']
+  },
+  {
+    subject: 'Assistanceassocier',
+    client: ['read', 'create', 'update']
+  },
+  {
+    subject: 'gestionchatbotassistant',
+    Admin: ['read', 'create', 'update']
   }
 
   // Ajoutez d'autres sujets et rôles ici si nécessaire
@@ -41,10 +49,10 @@ const permissions = [
 const defineRulesFor = (role, subject) => {
   const { can, rules } = new AbilityBuilder(AppAbility)
   if (role === 'admin') {
-    can('manage', ['dashboard', 'client'])
+    can('manage', ['dashboard', 'client', 'gestionchatbotassistant'])
   } else if (role === 'client') {
     // can(['read'], 'acl-page')
-    can('manage', ['dashboardClient', 'chatbot', 'conversationHistoric'])
+    can('manage', ['dashboardClient', 'chatbot', 'conversationHistoric', 'Assistanceassocier'])
   } else {
     // can(['read', 'create', 'update', 'delete'], subject)
     // can('manage', 'all')

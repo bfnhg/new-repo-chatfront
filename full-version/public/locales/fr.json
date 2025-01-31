@@ -44,5 +44,18 @@
   "Phone is required": "Le téléphone est requis",
   "Password is required": "Le mot de passe est requis",
   "Question": "Question",
-  "Réponse": "Réponse"
+  "Réponse": "Réponse",
+  "Associated assistance": "Assistance associé",
+  "Assistant List": "List d 'assistance",
+  "Model": "Modèle",
+  "Prompt": "",
+  "Create assistant": "Création d'assistances",
+  "Creating Assistant...": "Création de l'assistant...",
+
+  "Select client": "Sélectionner un client",
+  "Client selection is required": "La sélection du client est requise",
+  "Assistant prompt is required": "Le prompt de l'assistant est requis",
+  "Assistant Prompt": "Prompt de l'assistant",
+  "Temperature is required": "La température est requise",
+  "Temperature must be between 0 and 1": "La température doit être comprise entre 0 et 1"
 }

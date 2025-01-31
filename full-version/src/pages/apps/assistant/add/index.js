@@ -7,27 +7,27 @@ import Typography from '@mui/material/Typography'
 import PageHeader from 'src/@core/components/page-header'
 
 // ** Demo Components Imports
-import FormValidationBasic from 'src/views/forms/form-validation/FormValidationBasic'
 
 // ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+import SimpleFormValidationAssistant from 'src/views/forms/form-validation/FormValidationAssistance'
 
-const FormValidation = () => {
+const FormValidationAssistance = () => {
   return (
     <DatePickerWrapper>
       <Grid container spacing={6} className='match-height'>
         <PageHeader title={<Typography variant='h5'></Typography>} />
         <Grid item xs={12}>
-          <FormValidationBasic />
+          <SimpleFormValidationAssistant />
         </Grid>
       </Grid>
     </DatePickerWrapper>
   )
 }
 
-FormValidation.acl = {
+FormValidationAssistance.acl = {
   action: 'read',
-  subject: 'client'
+  subject: 'gestionchatbotassistant'
 }
 
-export default FormValidation
+export default FormValidationAssistance

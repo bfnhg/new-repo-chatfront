@@ -181,7 +181,7 @@ const ChatbotPage = ({ chatbotId, sidebarWidth, mdAbove }) => {
           gap: 1
         }}
       >
-        {suggestions.map((suggestion, index) => (
+        {/* {suggestions.map((suggestion, index) => (
           <Button
             key={index}
             variant='contained'
@@ -201,7 +201,7 @@ const ChatbotPage = ({ chatbotId, sidebarWidth, mdAbove }) => {
           >
             {suggestion}
           </Button>
-        ))}
+        ))} */}
       </Box>
 
       {/* Footer */}

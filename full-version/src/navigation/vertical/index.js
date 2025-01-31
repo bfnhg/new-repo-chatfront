@@ -111,6 +111,24 @@ const navigation = () => {
           path: '/apps/clients/historic',
           action: 'read',
           subject: 'conversationHistoric'
+        },
+        {
+          title: t('Associated assistance'),
+          path: '/apps/assistant/list',
+          action: 'read',
+          subject: 'Assistanceassocier'
+        }
+      ]
+    },
+    {
+      title: 'Assistant',
+      icon: 'mdi:file-document-outline',
+      children: [
+        {
+          title: t('Add'),
+          path: '/apps/assistant/add',
+          action: 'read',
+          subject: 'gestionchatbotassistant'
         }
       ]
     }
