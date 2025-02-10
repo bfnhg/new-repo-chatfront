@@ -98,12 +98,16 @@ const FormValidationBasic = () => {
         formData.append(`questions[${index}][answer]`, item.answer)
       })
 
-      // Envoyer les données au backend
-      const response = await axios.post('http://127.0.0.1:5000/clients', formData, {
+
+
+      const token = localStorage.getItem('accessToken')
+      const response = await axios.post('http://localhost:7000/api/clients', formData, {
         headers: {
-          'Content-Type': 'multipart/form-data' // Indiquer que le contenu est un formulaire multipart
-        }
-      })
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data' // Indicating that the request body is multipart
+        },
+        withCredentials: true
+      });
 
       if (response.status === 201) {
         toast.success(t('Client created_successfully'))

@@ -27,7 +27,7 @@ const AnalyticsWeeklyOverview = () => {
       try {
         const token = localStorage.getItem('accessToken') // Adjust this key based on how you store the token
 
-        const response = await axios.get('http://localhost:5000/stats/overview', {
+        const response = await axios.get('http://localhost:7000/api/messages/client/overview', {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'

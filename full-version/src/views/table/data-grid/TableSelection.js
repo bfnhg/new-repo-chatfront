@@ -41,7 +41,7 @@ const TableSelection = () => {
     try {
       const token = localStorage.getItem('accessToken')
 
-      const response = await axios.get('http://localhost:5000/api/admin/clients', {
+      const response = await axios.get('http://localhost:7000/api/clients', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ const TableSelection = () => {
     try {
       const token = localStorage.getItem('accessToken')
 
-      await axios.delete(`http://localhost:5000/api/admin/clients/${clientToDelete}`, {
+      await axios.delete(`http://localhost:7000/api/clients/${clientToDelete}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -104,7 +104,7 @@ const TableSelection = () => {
     try {
       const token = localStorage.getItem('accessToken')
 
-      await axios.put(`http://localhost:5000/api/admin/clients/${selectedClient.id}`, selectedClient, {
+      await axios.put(`http://localhost:7000/api/clients/${selectedClient.id}`, selectedClient, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
