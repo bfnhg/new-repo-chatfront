@@ -54,14 +54,18 @@ const FormValidationBasic = () => {
     if (/[A-Z]/.test(value)) strength += 25
     if (/[a-z]/.test(value)) strength += 25
     if (/[0-9]/.test(value) && /[@$!%*?&]/.test(value)) strength += 25
+
     return strength
   }
+
   // Fonction pour définir la couleur en fonction de la force
   const getProgressColor = strength => {
     if (strength < 50) return 'error' // Rouge (faible)
     if (strength < 75) return 'warning' // Orange (moyen)
+
     return 'success' // Vert (fort)
   }
+
   const {
     control,
     handleSubmit,
@@ -102,12 +106,12 @@ const FormValidationBasic = () => {
       })
 
       if (response.status === 201) {
-        toast.success('Client created successfully!')
+        toast.success(t('Client created_successfully'))
         setChatbotLink(response.data.chatbot_link) // Affiche le lien du chatbot
         setClientName(data.name)
       }
     } catch (error) {
-      toast.error('Error creating client. Please try again.')
+      toast.error(t('Error_creating_client'))
       console.error(error)
     }
   }
@@ -337,7 +341,7 @@ const FormValidationBasic = () => {
                 </label>
                 {logoFile && (
                   <Typography variant='body2' sx={{ mt: 2 }}>
-                    Fichier sélectionné : {logoFile.name}
+                    {t('Selected file')}: {logoFile.name}
                   </Typography>
                 )}
               </FormControl>
@@ -368,7 +372,7 @@ const FormValidationBasic = () => {
                 <Grid item xs={12} sm={6} spacing={2}>
                   <TextField
                     fullWidth
-                    label={`Question ${index + 1}`}
+                    label={`${t('Question')} ${index + 1}`}
                     value={item.question}
                     onChange={e => handleQuestionChange(index, 'question', e.target.value)}
                   />
@@ -376,7 +380,7 @@ const FormValidationBasic = () => {
                 <Grid item xs={12} sm={6}>
                   <TextField
                     fullWidth
-                    label={`Réponse ${index + 1}`}
+                    label={`${t('Response')} ${index + 1}`}
                     value={item.answer}
                     onChange={e => handleQuestionChange(index, 'answer', e.target.value)}
                   />
@@ -399,7 +403,7 @@ const FormValidationBasic = () => {
         </form>
 
         {/* Lien du chatbot */}
-        {chatbotLink && (
+        {/* {chatbotLink && (
           <Grid item xs={12} sx={{ mt: 4 }}>
             <Typography variant='h6' color='primary'>
               {t('The chatbot link for')}: <strong>{clientName}</strong> :{' '}
@@ -408,7 +412,7 @@ const FormValidationBasic = () => {
               </a>
             </Typography>
           </Grid>
-        )}
+        )} */}
       </CardContent>
     </Card>
   )

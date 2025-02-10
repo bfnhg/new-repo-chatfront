@@ -65,6 +65,7 @@ const VerticalNavHeader = props => {
         try {
           const response = await axios.get(`http://localhost:5000/clients/${clientId}`)
           setClientData(response.data)
+          console.log(response, 'jekek')
         } catch (error) {
           console.error('Error fetching client data:', error)
         }

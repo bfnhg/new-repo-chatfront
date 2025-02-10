@@ -76,12 +76,12 @@ const SimpleFormValidationAssistant = () => {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/createAssistant`, requestBody)
 
       if (response.status === 201) {
-        toast.success('Assistant created successfully!')
+        toast.success(t('Assistant created successfully!'))
         reset()
       }
     } catch (error) {
       console.error('Error details:', error)
-      toast.error(error.response?.data?.message || 'Error creating assistant. Please try again.')
+      toast.error(error.response?.data?.message || 'Error creating assistant. Please try again')
     } finally {
       setIsSubmitting(false)
     }
@@ -209,7 +209,7 @@ const SimpleFormValidationAssistant = () => {
 
             <Grid item xs={12}>
               <Button type='submit' variant='contained' disabled={isSubmitting || clients.length === 0}>
-                {isSubmitting ? t('Creating Assistant...') : t('Create Assistant')}{' '}
+                {t('Creating Assistant')}
               </Button>
             </Grid>
           </Grid>
