@@ -16,7 +16,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 const Dashboard = () => {
   const [totalMessages, setTotalMessages] = useState(null)
   const [totalConversations, setTotalConversations] = useState(null)
-  const [conversationsByCountry, setConversationsByCountry] = useState([])
+  const [conversationsByCountry, setConversationsByCountry] = useState(null)
   const [userRole, setUserRole] = useState(null)
   let { t } = useTranslation()
 
@@ -42,7 +42,7 @@ const Dashboard = () => {
         }
 
         // Fetch total messages
-        const totalMessagesResponse = await axios.get('http://localhost:5000/api/messages/count', {
+        const totalMessagesResponse = await axios.get('http://localhost:7000/api/messages/client/count', {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -52,7 +52,7 @@ const Dashboard = () => {
         setTotalMessages(totalMessagesResponse.data.total_messages)
 
         // Fetch total conversations
-        const totalConversationsResponse = await axios.get('http://localhost:5000/api/conversations/count', {
+        const totalConversationsResponse = await axios.get('http://localhost:7000/api/conversations/client/count', {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
@@ -62,15 +62,15 @@ const Dashboard = () => {
         setTotalConversations(totalConversationsResponse.data.total_conversations)
 
         // Fetch conversations by country
-        const conversationsByCountryResponse = await axios.get('http://localhost:5000/api/conversations/by-country', {
+        const conversationsByCountryResponse = await axios.get('http://localhost:7000/api/conversations/client/today', {
           headers: {
             Authorization: `Bearer ${token}`,
             'Content-Type': 'application/json'
           },
           withCredentials: true
         })
-        console.log('<<<', conversationsByCountryResponse)
-        setConversationsByCountry(conversationsByCountryResponse.data)
+        console.log('<<< to day', conversationsByCountryResponse)
+        setConversationsByCountry(conversationsByCountryResponse.data.total_conversations)
       } catch (error) {
         console.error('Error fetching data:', error)
         if (error.response?.status === 401) {
@@ -114,12 +114,11 @@ const Dashboard = () => {
             {/* Conversations by Country Card */}
             <Grid item xs={12} md={4}>
               <CardStatisticsVerticalComponent
-                stats={
-                  conversationsByCountry.length !== 0 ? `${conversationsByCountry.length} countries` : 'Loading...'
-                }
+                stats={conversationsByCountry !== null ? `${conversationsByCountry}` : 'Loading...'}
+
                 icon={<Icon icon='mdi:earth' />}
                 color='success'
-                title={t('Conversations by Country')}
+                title={t('Conversations')}
               />
             </Grid>
 

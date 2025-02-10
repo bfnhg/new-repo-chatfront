@@ -38,7 +38,7 @@ const SimpleFormValidationAssistant = () => {
     try {
       const token = localStorage.getItem('accessToken')
 
-      const response = await axios.get('http://localhost:5000/api/admin/clients', {
+      const response = await axios.get('http://localhost:7000/api/clients', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -73,7 +73,14 @@ const SimpleFormValidationAssistant = () => {
         temprature: formData.temprature
       }
 
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/admin/createAssistant`, requestBody)
+      const token = localStorage.getItem('accessToken')
+      const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/assistants`, requestBody, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json' // Indicating that the request body is multipart
+        },
+        withCredentials: true
+      });
 
       if (response.status === 201) {
         toast.success('Assistant created successfully!')

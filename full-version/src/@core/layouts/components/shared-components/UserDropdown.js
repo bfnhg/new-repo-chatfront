@@ -56,8 +56,15 @@ const UserDropdown = props => {
     if (clientId) {
       const fetchClientData = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/clients/${clientId}`)
+          const token = localStorage.getItem('accessToken')
 
+          const response = await axios.get(`http://localhost:7000/api/clients/${clientId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            withCredentials: true
+          })
           setClientData(response.data)
           console.log('clientData.logo ', clientData.logo)
         } catch (error) {

@@ -37,7 +37,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('accessToken') // Adjust this key based on how you store the token
 
       // Make the API request with the Authorization header
-      const response = await axios.get('http://localhost:5000/api/messages/count', {
+      const response = await axios.get('http://localhost:7000/api/messages/count', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -69,12 +69,12 @@ const Dashboard = () => {
       const token = localStorage.getItem('accessToken') // Adjust this key based on how you store the token
 
       // Make the API request with the Authorization header
-      const response = await axios.get('http://localhost:5000/api/admin/messages/average', {
+      const response = await axios.get('http://localhost:7000/api/messages/admin/average', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        withCredentials: true // Important if you're using cookies
+        // withCredentials: true // Important if you're using cookies
       })
 
       console.log('&', response)
@@ -109,7 +109,7 @@ const Dashboard = () => {
         }
       }
 
-      const response = await axios.get('http://localhost:5000/api/admin/conversations/count', {
+      const response = await axios.get('http://localhost:7000/api/conversations/admin/count', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -148,7 +148,7 @@ const Dashboard = () => {
       const token = localStorage.getItem('accessToken')
 
       // Effectuer la requête GET vers l'API
-      const response = await axios.get('http://localhost:5000/api/admin/messages/count', {
+      const response = await axios.get('http://localhost:7000/api/messages/admin/count', {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'

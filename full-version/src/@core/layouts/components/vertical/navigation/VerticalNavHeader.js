@@ -55,7 +55,8 @@ const VerticalNavHeader = props => {
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
   const [clientData, setClientData] = useState(null)
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-
+  const backendHead = backendUrl.replace(/\/api$/, '');
+  console.log(backendHead)
   const userData = JSON.parse(localStorage.getItem('userData'))
   const clientId = userData ? userData.id : null
 
@@ -63,16 +64,31 @@ const VerticalNavHeader = props => {
     if (clientId) {
       const fetchClientData = async () => {
         try {
-          const response = await axios.get(`http://localhost:5000/clients/${clientId}`)
-          setClientData(response.data)
+          const token = localStorage.getItem('accessToken')
+          const response = await axios.get(`http://localhost:7000/api/clients/${clientId}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            withCredentials: true
+          })
+          console.log("Response == ",response)
+          const cleanedData = {
+            ...response.data,
+            logo: response.data.logo.replace(/\\/g, '/') // Fix backslashes in logo path
+          }
+          setClientData(cleanedData)
+          console.log('Client Data:', cleanedData)
         } catch (error) {
           console.error('Error fetching client data:', error)
         }
       }
-
       fetchClientData()
     }
   }, [clientId])
+
+
+
 
   const menuHeaderPaddingLeft = () => {
     if (navCollapsed && !navHover) {
@@ -142,11 +158,12 @@ const VerticalNavHeader = props => {
                 userData?.role === 'admin'
                   ? '/images/alidantek/logo.png'
                   : clientData?.logo
-                  ? `${backendUrl}${clientData.logo}`
+                  ? `${backendHead}${clientData.logo.startsWith('/') ? '' : '/'}${clientData.logo}`
                   : '/images/alidantek/logo.png'
               }
+
               onError={e => (e.target.src = '/images/alidantek/logo.png')}
-              style={{ width: 150, height: 150, marginBottom: theme.spacing(2) }} // Espace sous l'image
+              style={{ width: 150, height: 150, marginBottom: theme.spacing(2) }}
             />
           </StyledLink>
         </>
