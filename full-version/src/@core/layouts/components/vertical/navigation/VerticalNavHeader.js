@@ -64,11 +64,6 @@ const VerticalNavHeader = props => {
     if (clientId) {
       const fetchClientData = async () => {
         try {
-<<<<<<< HEAD
-          const response = await axios.get(`http://localhost:5000/clients/${clientId}`)
-          setClientData(response.data)
-          console.log(response, 'jekek')
-=======
           const token = localStorage.getItem('accessToken')
           const response = await axios.get(`http://localhost:7000/api/clients/${clientId}`, {
             headers: {
@@ -84,7 +79,6 @@ const VerticalNavHeader = props => {
           }
           setClientData(cleanedData)
           console.log('Client Data:', cleanedData)
->>>>>>> 74e5cd7a60d930c7d0a6ce2f3556d3a278d90946
         } catch (error) {
           console.error('Error fetching client data:', error)
         }
