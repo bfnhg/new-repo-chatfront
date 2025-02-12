@@ -34,7 +34,7 @@ const AuthGuard = props => {
     } else {
       setIsAuthenticated(true)
     }
-  }, [router.isReady, router.asPath, auth.user])
+  }, [router,router.isReady, router.asPath, auth.user])
 
   // Si l'authentification est en cours, montrez le fallback
   if (auth.loading || !isAuthenticated) {

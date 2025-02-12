@@ -181,7 +181,6 @@ const LoginPage = () => {
                */}
               <Chip
                 label='Chat generator'
-                // color=''
                 variant='filled'
                 style={{ fontSize: '1.5rem', backgroundColor: 'black', color: 'white', padding: '8px 12px' }}
               />

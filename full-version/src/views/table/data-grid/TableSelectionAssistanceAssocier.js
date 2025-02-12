@@ -41,6 +41,7 @@ const AssistantTable = () => {
 
       if (!clientId) {
         console.error('No client ID found')
+
         return
       }
 

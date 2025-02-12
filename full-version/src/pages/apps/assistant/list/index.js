@@ -38,8 +38,10 @@ const DataGrid = () => {
             Authorization: `Bearer ${token}`
           }
         })
-        // ✅ Extract `assistants` array from the response and format it properly
+
+
         const formattedData = response.data.assistants.map((assistant) => ({
+
           id: assistant.id,
           client_id: assistant.client_id,
           assistant_prompt: assistant.assistant_prompt,
@@ -97,7 +99,9 @@ const DataGrid = () => {
 
   // 🔹 Handles Update Action (API Call)
   const handleUpdate = async (id) => {
+
     console.log(`Update assistant with ID: ${id}`)
+
     // TODO: Implement API Call to update assistant
   }
 

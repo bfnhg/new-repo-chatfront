@@ -66,7 +66,6 @@ const UserDropdown = props => {
             withCredentials: true
           })
           setClientData(response.data)
-          console.log('clientData.logo ', clientData.logo)
         } catch (error) {
           console.error('Error fetching client data:', error)
         }

@@ -74,6 +74,7 @@ const SimpleFormValidationAssistant = () => {
       }
 
       const token = localStorage.getItem('accessToken')
+
       const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/assistants`, requestBody, {
         headers: {
           Authorization: `Bearer ${token}`,

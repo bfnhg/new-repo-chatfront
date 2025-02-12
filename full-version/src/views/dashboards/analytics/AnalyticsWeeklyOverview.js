@@ -35,18 +35,18 @@ const AnalyticsWeeklyOverview = () => {
           withCredentials: true // Important if you're using cookies
         })
 
-        // Data is already in `response.data` with Axios
         const data = response.data
-        console.log('--', data)
 
-        // Créez un tableau pour stocker les messages par jour
         const daysOrder = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
         const messageCounts = daysOrder.map(day => {
           const dayData = data.find(d => d.day === day)
+
           return dayData ? dayData.total_messages : 0
         })
 
         setSeriesData(messageCounts)
+
       } catch (error) {
         console.error('Error fetching data:', error)
       }
@@ -85,14 +85,7 @@ const AnalyticsWeeklyOverview = () => {
       }
     },
     dataLabels: { enabled: false },
-    // colors: [
-    //   theme.palette.customColors.trackBg,
-    //   theme.palette.customColors.trackBg,
-    //   theme.palette.customColors.trackBg,
-    //   theme.palette.primary.main,
-    //   theme.palette.customColors.trackBg,
-    //   theme.palette.customColors.trackBg
-    // ],
+
     colors: ['#1976D2'],
     states: {
       hover: {

@@ -35,8 +35,11 @@ const EnhancedChatHistory = () => {
       const token = localStorage.getItem('accessToken')
       if (!token) {
         console.warn('Aucun token trouvé. Redirection ou autre gestion nécessaire.')
+
         return
+
       }
+
       const response = await axios.get('http://localhost:5000/api/client/conversations', {
         headers: {
           Authorization: `Bearer ${token}`,

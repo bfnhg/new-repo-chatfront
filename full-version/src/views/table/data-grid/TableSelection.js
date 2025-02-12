@@ -84,10 +84,12 @@ const TableSelection = () => {
     setSelectedClient(client)
     setOpen(true)
   }
+
   const handleOpenConfirm = id => {
     setClientToDelete(id)
     setOpenConfirm(true)
   }
+
   const handleCloseConfirm = () => {
     setOpenConfirm(false)
     setClientToDelete(null)

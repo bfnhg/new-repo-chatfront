@@ -74,7 +74,6 @@ const Dashboard = () => {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         },
-        // withCredentials: true // Important if you're using cookies
       })
 
       console.log('&', response)

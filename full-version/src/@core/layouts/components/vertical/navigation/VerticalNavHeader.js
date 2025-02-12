@@ -65,6 +65,7 @@ const VerticalNavHeader = props => {
       const fetchClientData = async () => {
         try {
           const token = localStorage.getItem('accessToken')
+
           const response = await axios.get(`http://localhost:7000/api/clients/${clientId}`, {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -72,7 +73,7 @@ const VerticalNavHeader = props => {
             },
             withCredentials: true
           })
-          console.log("Response == ",response)
+          
           const cleanedData = {
             ...response.data,
             logo: response.data.logo.replace(/\\/g, '/') // Fix backslashes in logo path

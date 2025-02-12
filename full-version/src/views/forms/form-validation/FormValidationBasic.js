@@ -101,6 +101,7 @@ const FormValidationBasic = () => {
 
 
       const token = localStorage.getItem('accessToken')
+
       const response = await axios.post('http://localhost:7000/api/clients', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -226,11 +227,14 @@ const FormValidationBasic = () => {
                   rules={{
                     required: { value: true, message: t('Site is required') || 'Le site est requis' },
                     validate: value => {
-                      // Regex pour valider une URL
+
                       const urlPattern = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
                       if (!urlPattern.test(value)) {
+
                         return 'Please enter a valid URL (e.g., https://example.com)'
+
                       }
+
                       return true
                     }
                   }}
