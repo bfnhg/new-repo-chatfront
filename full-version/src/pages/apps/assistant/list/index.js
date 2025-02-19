@@ -13,12 +13,13 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogTitle from '@mui/material/DialogTitle'
 import TextField from '@mui/material/TextField'
+import { useTranslation } from 'react-i18next'
 
 // ** Custom Components Imports
 import PageHeader from 'src/@core/components/page-header'
 
 const DataGrid = () => {
-  // 🔹 State Management
+  // 🔹 State Managementss
   const [assistants, setAssistants] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -26,7 +27,7 @@ const DataGrid = () => {
   const [selectedAssistantId, setSelectedAssistantId] = useState(null)
   const [customTitle, setCustomTitle] = useState('')
   const [customColor, setCustomColor] = useState('#007bff') // Default color
-
+  let { t } = useTranslation()
   // 🔹 Fetch Assistants from API
   useEffect(() => {
     const fetchAssistants = async () => {
@@ -39,7 +40,7 @@ const DataGrid = () => {
           }
         })
         // ✅ Extract `assistants` array from the response and format it properly
-        const formattedData = response.data.assistants.map((assistant) => ({
+        const formattedData = response.data.assistants.map(assistant => ({
           id: assistant.id,
           client_id: assistant.client_id,
           assistant_prompt: assistant.assistant_prompt,
@@ -60,7 +61,7 @@ const DataGrid = () => {
   }, [])
 
   // 🔹 Open the modal before downloading
-  const handleOpenModal = (assistant_id) => {
+  const handleOpenModal = assistant_id => {
     setSelectedAssistantId(assistant_id)
     setCustomTitle('')
     setCustomColor('#007bff') // Reset to default color
@@ -86,17 +87,17 @@ const DataGrid = () => {
   }
 
   // 🔹 Handles Delete Action (API Call)
-  const handleDelete = async (id) => {
+  const handleDelete = async id => {
     try {
       await axios.delete(`http://localhost:7000/deleteAssistant/${id}`)
-      setAssistants(assistants.filter((assistant) => assistant.id !== id))
+      setAssistants(assistants.filter(assistant => assistant.id !== id))
     } catch (error) {
       console.error('Error deleting assistant:', error)
     }
   }
 
   // 🔹 Handles Update Action (API Call)
-  const handleUpdate = async (id) => {
+  const handleUpdate = async id => {
     console.log(`Update assistant with ID: ${id}`)
     // TODO: Implement API Call to update assistant
   }
@@ -104,30 +105,36 @@ const DataGrid = () => {
   // 🔹 Table Columns
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'client_id', headerName: 'Client ID', width: 120 },
-    { field: 'assistant_prompt', headerName: 'Prompt', flex: 1 },
+
+    // { field: 'client_id', headerName: 'Client ID', width: 120 },
+
+    { field: 'assistant_prompt', headerName: t('Assistant Prompt'), flex: 1 },
     { field: 'temperature', headerName: 'Temperature', width: 120 },
-    { field: 'model', headerName: 'Model', width: 150 },
-    { field: 'openai_assistant_id', headerName: 'OpenAI ID', width: 250 },
-    { field: 'created_at', headerName: 'Created At', width: 180 },
+    { field: 'model', headerName: t('Model'), width: 150 },
+
+    // { field: 'openai_assistant_id', headerName: 'OpenAI ID', width: 250 },
+
+    { field: 'created_at', headerName: t('Created at'), width: 180 },
     {
       field: 'actions',
       headerName: 'Actions',
       width: 250,
-      renderCell: (params) => (
+      renderCell: params => (
         <div>
           {/* Delete Button */}
-          <IconButton color="error" onClick={() => handleDelete(params.row.id)}>
+
+          {/* <IconButton color='error' onClick={() => handleDelete(params.row.id)}>
             <DeleteIcon />
-          </IconButton>
+          </IconButton> */}
 
           {/* Update Button */}
-          <IconButton color="primary" onClick={() => handleUpdate(params.row.id)}>
+
+          {/* <IconButton color='primary' onClick={() => handleUpdate(params.row.id)}>
             <EditIcon />
-          </IconButton>
+          </IconButton> */}
 
           {/* Download JS Button (Opens Modal) */}
-          <IconButton color="success" onClick={() => handleOpenModal(params.row.id)}>
+          <IconButton color='success' onClick={() => handleOpenModal(params.row.id)}>
             <DownloadIcon />
           </IconButton>
         </div>
@@ -137,13 +144,19 @@ const DataGrid = () => {
 
   return (
     <Grid container spacing={6}>
-      <PageHeader title={<Typography variant='h5'>Assistants Management</Typography>} subtitle={<Typography variant='body2'>Manage AI Assistants</Typography>} />
+      <PageHeader
+        title={<Typography variant='h5'>{t('Assistant List')}</Typography>}
+
+        // subtitle={<Typography variant='body2'>Manage AI Assistants</Typography>}
+      />
 
       <Grid item xs={12}>
         {loading ? (
-          <Typography variant="h6">Loading assistants...</Typography>
+          <Typography variant='h6'>Loading assistants...</Typography>
         ) : error ? (
-          <Typography variant="h6" color="error">{error}</Typography>
+          <Typography variant='h6' color='error'>
+            {error}
+          </Typography>
         ) : (
           <MuiDataGrid rows={assistants} columns={columns} autoHeight pageSize={5} />
         )}
@@ -154,27 +167,27 @@ const DataGrid = () => {
         <DialogTitle>Customize Assistant Settings</DialogTitle>
         <DialogContent>
           <TextField
-            label="Assistant Title"
+            label='Assistant Title'
             fullWidth
-            variant="outlined"
+            variant='outlined'
             value={customTitle}
-            onChange={(e) => setCustomTitle(e.target.value)}
+            onChange={e => setCustomTitle(e.target.value)}
             style={{ marginBottom: '15px' }}
           />
           <TextField
-            label="Theme Color"
-            type="color"
+            label='Theme Color'
+            type='color'
             fullWidth
-            variant="outlined"
+            variant='outlined'
             value={customColor}
-            onChange={(e) => setCustomColor(e.target.value)}
+            onChange={e => setCustomColor(e.target.value)}
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setOpenModal(false)} color="secondary">
+          <Button onClick={() => setOpenModal(false)} color='secondary'>
             Cancel
           </Button>
-          <Button onClick={handleDownloadJS} color="primary">
+          <Button onClick={handleDownloadJS} color='primary'>
             Download
           </Button>
         </DialogActions>

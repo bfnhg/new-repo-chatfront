@@ -55,7 +55,7 @@ const VerticalNavHeader = props => {
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
   const [clientData, setClientData] = useState(null)
   const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL
-  const backendHead = backendUrl.replace(/\/api$/, '');
+  const backendHead = backendUrl.replace(/\/api$/, '')
   console.log(backendHead)
   const userData = JSON.parse(localStorage.getItem('userData'))
   const clientId = userData ? userData.id : null
@@ -64,11 +64,6 @@ const VerticalNavHeader = props => {
     if (clientId) {
       const fetchClientData = async () => {
         try {
-<<<<<<< HEAD
-          const response = await axios.get(`http://localhost:5000/clients/${clientId}`)
-          setClientData(response.data)
-          console.log(response, 'jekek')
-=======
           const token = localStorage.getItem('accessToken')
           const response = await axios.get(`http://localhost:7000/api/clients/${clientId}`, {
             headers: {
@@ -77,14 +72,13 @@ const VerticalNavHeader = props => {
             },
             withCredentials: true
           })
-          console.log("Response == ",response)
+          console.log('Response == ', response)
           const cleanedData = {
             ...response.data,
             logo: response.data.logo.replace(/\\/g, '/') // Fix backslashes in logo path
           }
           setClientData(cleanedData)
           console.log('Client Data:', cleanedData)
->>>>>>> 74e5cd7a60d930c7d0a6ce2f3556d3a278d90946
         } catch (error) {
           console.error('Error fetching client data:', error)
         }
@@ -92,9 +86,6 @@ const VerticalNavHeader = props => {
       fetchClientData()
     }
   }, [clientId])
-
-
-
 
   const menuHeaderPaddingLeft = () => {
     if (navCollapsed && !navHover) {
@@ -167,7 +158,6 @@ const VerticalNavHeader = props => {
                   ? `${backendHead}${clientData.logo.startsWith('/') ? '' : '/'}${clientData.logo}`
                   : '/images/alidantek/logo.png'
               }
-
               onError={e => (e.target.src = '/images/alidantek/logo.png')}
               style={{ width: 150, height: 150, marginBottom: theme.spacing(2) }}
             />
