@@ -6,6 +6,8 @@ import axios from 'axios' // You can use axios or fetch for API calls
 import Icon from 'src/@core/components/icon'
 
 // ** Custom Components Imports
+import TableSelectionVisit from 'src/views/table/data-grid/TableSelectionVisite'
+
 import CardStatisticsVerticalComponent from 'src/@core/components/card-statistics/card-stats-vertical'
 import AnalyticsWeeklyOverview from 'src/views/dashboards/analytics/AnalyticsWeeklyOverview'
 import { useTranslation } from 'react-i18next'
@@ -115,11 +117,13 @@ const Dashboard = () => {
             <Grid item xs={12} md={4}>
               <CardStatisticsVerticalComponent
                 stats={conversationsByCountry !== null ? `${conversationsByCountry}` : 'Loading...'}
-
                 icon={<Icon icon='mdi:earth' />}
                 color='success'
                 title={t('Conversations')}
               />
+            </Grid>
+            <Grid item xs={12}>
+              <TableSelectionVisit />
             </Grid>
 
             {/* Weekly Overview Chart */}
